@@ -399,7 +399,7 @@
       "id": "P003",
       "slug": "decimal-codec",
       "title": "十进制字符输入输出",
-      "status": "planned",
+      "status": "solved",
       "phase": 1,
       "dependencies": [
         "P001"
@@ -408,17 +408,17 @@
         "S04",
         "S05"
       ],
-      "io": "字符输入输出（草案）",
-      "statement": "读取一行可选正负号和十进制数字，输出无冗余前导零的十进制文本。",
-      "plan": "先做 ASCII 数字分类、乘十加位、符号与负零规范化；再做整数到数字字符。",
-      "acceptance": "0、-0、+0012、-0012、较长数字；空行和非法数字策略开题时确认。",
+      "io": "每次 Runtime 处理一行 ASCII 十进制文本，@input_as_char 在 LF 处终止；EOF 抛 EOFError",
+      "statement": "读取匹配 [+-]?[0-9]+ 的首行十进制整数，规范化前导零和负零后输出；空行或非法字符输出 ERROR 和换行。",
+      "plan": "按零测试分类数字，使用乘十加位累计幅值；输出端逐位长除以十并映射为字符。",
+      "acceptance": "零、符号、前导零、长输入、空白和非法字符、只处理首行、EOF 行为和动态槽地址碰撞。",
       "directory": "problems/P003-decimal-codec"
     },
     {
       "id": "P004",
       "slug": "signed-multiply",
       "title": "有符号乘法器",
-      "status": "planned",
+      "status": "solved",
       "phase": 1,
       "dependencies": [
         "P001"
@@ -429,27 +429,24 @@
       "io": "整数行输入",
       "statement": "两行整数 A、B；输出 A×B；只用标准基本操作。",
       "plan": "复用符号/幅值表示与非负加法，累计乘数次；记录 O(|A|×|B|) 基线再优化。",
-      "acceptance": "任一数为零、四种符号组合、±1、保留地址碰撞。",
+      "acceptance": "小整数有符号全枚举、零、四种符号组合、±1、保留地址碰撞和大幅值回归。",
       "directory": "problems/P004-signed-multiply"
     },
     {
       "id": "P005",
       "slug": "gcd",
       "title": "最大公约数",
-      "status": "planned",
+      "status": "solved",
       "phase": 1,
-      "dependencies": [
-        "P001",
-        "P004"
-      ],
+      "dependencies": ["P001"],
       "sources": [
         "S05",
         "S12"
       ],
-      "io": "整数行输入（草案）",
-      "statement": "输出非负 gcd(A,B)，拟约定 gcd(0,0)=0。",
-      "plan": "先实现比较与非负余数，再做欧几里得算法；可先用减法版本验证。",
-      "acceptance": "(0,0)、单零、相等、互质、负输入；具体输入范围开题时确认。",
+      "io": "两行有符号整数输入；输出非负 gcd(A,B) 和换行",
+      "statement": "计算非负 gcd(A,B)，定义 gcd(0,0)=0，并在计算前取绝对值。",
+      "plan": "使用 PP3 实现非负长除法，再迭代欧几里得变换，直到余数为零。",
+      "acceptance": "有符号小整数全枚举、两个零位置、互质、相等、边界碰撞及较大数。",
       "directory": "problems/P005-gcd"
     },
     {
