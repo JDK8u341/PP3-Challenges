@@ -1,0 +1,10 @@
+[
+  {"name": "空帧", "stdin": "0\n", "stdout": "0 0 0\n"},
+  {"name": "无结尾换行", "stdin": "11\nhello world", "stdout": "0 2 11\n"},
+  {"name": "跨行与词边界", "stdin": "6\na b\nc\n", "stdout": "2 3 6\n"},
+  {"name": "ASCII 空白", "stdin": "7\n\t\n\u000b\u000c\r \t", "stdout": "1 0 7\n"},
+  {"name": "NBSP 不是本题空白", "stdin": "3\na b", "stdout": "0 1 3\n"},
+  {"name": "NUL 与 255", "stdin": "2\n\u0000ÿ", "stdout": "0 1 2\n"},
+  {"name": "负长度", "stdin": "-2\n", "stdout": "ERROR\n"},
+  {"name": "非法帧", "stdin": "3\nA中B", "stdout": "ERROR\n"}
+]

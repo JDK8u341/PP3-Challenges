@@ -2,7 +2,7 @@
 
 用 PP3 解 Brainfuck 世界中的经典题目和挑战：算术、数列、文本、排序、模拟，以及解释器和代码生成。题面、推导和计划使用中文。
 
-本仓库已完成**阶段 1**：收集 31 个候选、选出 12 个代表题，目前完成 5 题。包括归档的加法器和斐波那契，以及新增的十进制字符编解码、有符号乘法和 GCD。阶段 2 及之后的 7 题仍处于规划或研究阶段。
+本仓库已完成**阶段 2**：收集 31 个候选、选出 12 个代表题，目前完成 8 题。本阶段新增 ROT13、字节排序和 wc 统计，阶段 3 及之后的 4 题仍处于规划或研究阶段。
 
 - [完整候选题库](research/catalog.md)
 - [分阶段计划](ROADMAP.md)
@@ -20,9 +20,9 @@
 | 1 | [P003 十进制字符输入输出](problems/P003-decimal-codec/) | 已完成 |
 | 1 | [P004 有符号乘法器](problems/P004-signed-multiply/) | 已完成 |
 | 1 | [P005 最大公约数](problems/P005-gcd/) | 已完成 |
-| 2 | [P006 ROT13](problems/P006-rot13/) | 待开始 |
-| 2 | [P007 字节排序](problems/P007-byte-sort/) | 待开始 |
-| 2 | [P008 wc 统计](problems/P008-wc/) | 待开始 |
+| 2 | [P006 ROT13](problems/P006-rot13/) | 已完成 |
+| 2 | [P007 字节排序](problems/P007-byte-sort/) | 已完成 |
+| 2 | [P008 wc 统计](problems/P008-wc/) | 已完成 |
 | 3 | [P009 生命游戏](problems/P009-game-of-life/) | 待开始 |
 | 3 | [P010 文本到 PP3 代码生成器](problems/P010-text-to-pp3/) | 待开始 |
 | 4 | [P011 用 PP3 写 BF 解释器](problems/P011-brainfuck-interpreter/) | 待开始 |
@@ -40,6 +40,9 @@ python tools/run.py P002
 python tools/run.py P003
 python tools/run.py P004
 python tools/run.py P005
+python tools/run.py P006
+python tools/run.py P007
+python tools/run.py P008
 python -B -m unittest discover -v
 ```
 
@@ -49,7 +52,9 @@ P001 分两行输入 A、B，输出它们的和。P002 输入非负项数，从 
 
 P003 读取一行可选符号的 ASCII 十进制整数，输出规范化文本，非法输入输出 `ERROR`。P004、P005 都读取两行整数，分别输出乘积和非负最大公约数。所有题目仍禁用直接寻址。
 
-阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md) 和各题的 `proof.md`。重新生成这三题的纯 DSL：
+P006/P007/P008 使用“首行帧长 + 指定数量逻辑字符”的[字符帧协议](docs/stage2-frames.md)，补回 LF 计入长度，NUL 不作为结束标记。P006 与 P007 不额外补 LF，P008 输出一行 `行数 词数 字节数`。帧内非法码点、负长度和 EOF 均不会先输出部分结果。
+
+阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md)，阶段 2 新技巧见 [负地址数组寻址](docs/stage2-arrays.md) 和各题的 `proof.md`。重新生成阶段 1、2 的六题纯 DSL：
 
 ```text
 python tools/generate.py all

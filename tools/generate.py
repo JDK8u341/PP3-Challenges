@@ -1,4 +1,4 @@
-"""生成阶段一的纯 DSL 文件；不读取题目输入。"""
+"""生成阶段一、二的纯 DSL 文件；不读取题目输入。"""
 
 import argparse
 from pathlib import Path
@@ -6,7 +6,11 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.runtime import ROOT, problem
-from tools.stage1 import PROGRAMS, make_code
+from tools.macros import compile_program
+from tools.stage1 import PROGRAMS as STAGE1
+from tools.stage2 import PROGRAMS as STAGE2
+
+PROGRAMS = {**STAGE1, **STAGE2}
 
 
 def main():
@@ -16,7 +20,7 @@ def main():
     ids = PROGRAMS if args.problem_id == "all" else [args.problem_id]
     for problem_id in ids:
         target = ROOT / problem(problem_id)["directory"] / "solution.pp3"
-        target.write_text(make_code(problem_id), encoding="ascii")
+        target.write_text(compile_program(PROGRAMS[problem_id]), encoding="ascii")
         print(target.relative_to(ROOT))
 
 

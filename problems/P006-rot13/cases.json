@@ -1,0 +1,10 @@
+[
+  {"name": "空帧", "stdin": "0\n", "stdout": ""},
+  {"name": "问候文本不补 LF", "stdin": "13\nHello, World!", "stdout": "Uryyb, Jbeyq!"},
+  {"name": "大小写边界", "stdin": "6\nANZanz", "stdout": "NAMnam"},
+  {"name": "跨行帧", "stdin": "4\na\nB\n", "stdout": "n\nO\n"},
+  {"name": "NUL 与最大字节", "stdin": "2\n\u0000ÿ", "stdout": "\u0000ÿ"},
+  {"name": "补回 LF 计入帧", "stdin": "3\nAB", "stdout": "NO\n"},
+  {"name": "负长度", "stdin": "-3\n", "stdout": "ERROR\n"},
+  {"name": "末尾非法无部分输出", "stdin": "3\nAB中", "stdout": "ERROR\n"}
+]

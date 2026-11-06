@@ -1,0 +1,10 @@
+[
+  {"name": "空帧", "stdin": "0\n", "stdout": ""},
+  {"name": "逆序", "stdin": "3\ncba", "stdout": "abc"},
+  {"name": "重复与 NUL", "stdin": "5\nb\u0000aÿb", "stdout": "\u0000abbÿ"},
+  {"name": "LF 按码点排序", "stdin": "3\nb\na", "stdout": "\nab"},
+  {"name": "重复值", "stdin": "4\nAAAA", "stdout": "AAAA"},
+  {"name": "补回 LF", "stdin": "3\nAB", "stdout": "\nAB"},
+  {"name": "负长度", "stdin": "-1\n", "stdout": "ERROR\n"},
+  {"name": "非法字符", "stdin": "3\nA中B", "stdout": "ERROR\n"}
+]
