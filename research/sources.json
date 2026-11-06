@@ -1,0 +1,114 @@
+{
+  "checked_on": "2026-11-06",
+  "search_result_count": 50,
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Daniel B. Cristofani 的 Brainfuck 程序目录",
+      "author": "Daniel B. Cristofani",
+      "url": "https://brainfuck.org/",
+      "type": "作者主页及源码目录",
+      "verification": "作者目录确认题目及源码入口，未批量运行原程序",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S02",
+      "title": "小型 Brainfuck 程序与 Golf 题解",
+      "author": "Daniel B. Cristofani",
+      "url": "https://brainfuck.org/short.b",
+      "type": "作者源码及题意注释",
+      "verification": "直接阅读",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S03",
+      "title": "Brainfuck 基本算术：加法、乘法、幂",
+      "author": "Yehonathan Sharvit",
+      "url": "https://blog.klipse.tech/brainfuck/2016/12/21/brainfuck-big-numbers.html",
+      "type": "作者教程及程序",
+      "verification": "直接阅读；只用作灵感，不照搬讲解中的表述",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S04",
+      "title": "十进制字符输入转数值",
+      "author": "Scarta",
+      "url": "http://brainfuckhowto.blogspot.com/2017/02/read-decimal-number.html",
+      "type": "作者算法及源码",
+      "verification": "直接阅读",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S05",
+      "title": "欧几里得除法",
+      "author": "Scarta",
+      "url": "http://brainfuckhowto.blogspot.com/2017/02/euclidean-division.html",
+      "type": "作者算法及源码",
+      "verification": "直接阅读",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S06",
+      "title": "Brainfuck Golf 2：字节排序",
+      "author": "Daniel B. Cristofani 等参赛者",
+      "url": "https://www.brainfuck.org/results2.txt",
+      "type": "比赛题面及原始提交",
+      "verification": "直接阅读",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S07",
+      "title": "Brainfuck Golf 0：输入文本，输出打印该文本的程序",
+      "author": "Brainfuck Golf 参赛者",
+      "url": "https://sange.fi/esoteric/brainfuck/bf-golf-results/results0.txt",
+      "type": "原比赛结果存档",
+      "verification": "直接阅读",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S08",
+      "title": "A Very Short Self-Interpreter",
+      "author": "Oleg Mazonka、Daniel B. Cristofani",
+      "url": "https://arxiv.org/html/cs/0311032/",
+      "type": "作者论文",
+      "verification": "直接阅读",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S09",
+      "title": "Mandelbrot 分形查看器说明",
+      "author": "Erik Bosman",
+      "url": "https://sange.fi/esoteric/brainfuck/utils/mandelbrot/README.txt",
+      "type": "作者程序包说明存档",
+      "verification": "直接阅读",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S10",
+      "title": "Awib：用 Brainfuck 编写的编译器",
+      "author": "Mats Linander 及项目贡献者",
+      "url": "https://github.com/matslina/awib",
+      "type": "作者项目",
+      "verification": "直接阅读 README",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S11",
+      "title": "小型 Brainfuck 程序集",
+      "author": "4ffy",
+      "url": "https://github.com/4ffy/brainfuck-programs",
+      "type": "作者项目",
+      "verification": "直接阅读 README；区分标准 BF 和需随机扩展的 .rbf",
+      "checked_on": "2026-11-06"
+    },
+    {
+      "id": "S12",
+      "title": "Brainfuck GCD(sigma(N), N) 挑战",
+      "author": "AllenGrahamHart",
+      "url": "https://github.com/harbor-framework/terminal-bench-3/pull/91",
+      "type": "题目作者的提交",
+      "verification": "直接阅读题面与提案；不声称已复现其完整评测",
+      "checked_on": "2026-11-06"
+    }
+  ]
+}

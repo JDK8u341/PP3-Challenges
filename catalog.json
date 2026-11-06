@@ -1,0 +1,591 @@
+{
+  "schema_version": 1,
+  "language": "PP3",
+  "created_on": "2026-11-06",
+  "baseline": {
+    "repository": "https://github.com/JDK8u341/PP3",
+    "commit": "aceb4c532cf475f7b69fb623affc81c9f70e8c48",
+    "directory": "vendor/PP3",
+    "can_direct_addressing": false,
+    "op_map": "std_register"
+  },
+  "candidates": [
+    {
+      "id": "C001",
+      "title": "有符号 A+B",
+      "domain": "算术",
+      "sources": [
+        "S03"
+      ],
+      "difficulty": "基础",
+      "selected_as": "P001",
+      "note": "在旧的非负加法基础上扩展为任意有符号整数，已有解答"
+    },
+    {
+      "id": "C002",
+      "title": "斐波那契数列生成器",
+      "domain": "数列",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "基础",
+      "selected_as": "P002",
+      "note": "输入项数，从 1、1 开始输出，已有解答"
+    },
+    {
+      "id": "C003",
+      "title": "十进制字符输入输出",
+      "domain": "输入输出",
+      "sources": [
+        "S04",
+        "S05"
+      ],
+      "difficulty": "基础",
+      "selected_as": "P003",
+      "note": "区分数字字符与整数值；是代码生成器的前置能力"
+    },
+    {
+      "id": "C004",
+      "title": "有符号乘法器",
+      "domain": "算术",
+      "sources": [
+        "S03"
+      ],
+      "difficulty": "基础",
+      "selected_as": "P004",
+      "note": "用重复加法和符号处理，禁止借用 cup 乘法"
+    },
+    {
+      "id": "C005",
+      "title": "最大公约数",
+      "domain": "数论",
+      "sources": [
+        "S05",
+        "S12"
+      ],
+      "difficulty": "中级",
+      "selected_as": "P005",
+      "note": "从除法算法与复合 GCD 挑战抽出基础 GCD 题，属于本仓库改编"
+    },
+    {
+      "id": "C006",
+      "title": "ROT13 编解码器",
+      "domain": "文本编码",
+      "sources": [
+        "S01",
+        "S11"
+      ],
+      "difficulty": "中级",
+      "selected_as": "P006",
+      "note": "变换 ASCII 英文字母，保持其他字符"
+    },
+    {
+      "id": "C007",
+      "title": "字节排序",
+      "domain": "排序",
+      "sources": [
+        "S06"
+      ],
+      "difficulty": "中级",
+      "selected_as": "P007",
+      "note": "保留计数，比较插入排序与计数排序的取舍"
+    },
+    {
+      "id": "C008",
+      "title": "wc：行、词和字节统计",
+      "domain": "流处理",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "中级",
+      "selected_as": "P008",
+      "note": "有限状态机与多计数器"
+    },
+    {
+      "id": "C009",
+      "title": "Conway 生命游戏",
+      "domain": "模拟",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "高级",
+      "selected_as": "P009",
+      "note": "环面边界、双缓冲、有限代数，先做批处理版本"
+    },
+    {
+      "id": "C010",
+      "title": "文本到 PP3 代码生成器",
+      "domain": "代码生成",
+      "sources": [
+        "S07",
+        "S02"
+      ],
+      "difficulty": "高级",
+      "selected_as": "P010",
+      "note": "改编 BF Golf 0，要求由 PP3 程序生成可执行 PP3 源码"
+    },
+    {
+      "id": "C011",
+      "title": "用 PP3 编写 Brainfuck 解释器",
+      "domain": "解释器",
+      "sources": [
+        "S08",
+        "S01"
+      ],
+      "difficulty": "高级",
+      "selected_as": "P011",
+      "note": "先确认客体语义，再实现代码加载、括号匹配和调度"
+    },
+    {
+      "id": "C012",
+      "title": "PP3 子集自解释器",
+      "domain": "自举",
+      "sources": [
+        "S08",
+        "S10"
+      ],
+      "difficulty": "研究",
+      "selected_as": "P012",
+      "note": "用户提议；借鉴 BF 自解释思路，分子集和完整目标"
+    },
+    {
+      "id": "C013",
+      "title": "字节串反转",
+      "domain": "数据结构",
+      "sources": [
+        "S02"
+      ],
+      "difficulty": "基础",
+      "selected_as": null,
+      "note": "作为排序之前的可选栈练习"
+    },
+    {
+      "id": "C014",
+      "title": "head：截取前十行",
+      "domain": "流处理",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "基础",
+      "selected_as": null,
+      "note": "练习换行检测及输出终止"
+    },
+    {
+      "id": "C015",
+      "title": "二进制文本转字符",
+      "domain": "编码转换",
+      "sources": [
+        "S02"
+      ],
+      "difficulty": "中级",
+      "selected_as": null,
+      "note": "例如 0110100001101001 转为 hi"
+    },
+    {
+      "id": "C016",
+      "title": "阶乘序列",
+      "domain": "数论",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "中级",
+      "selected_as": null,
+      "note": "复用乘法；大整数版本后置"
+    },
+    {
+      "id": "C017",
+      "title": "Collatz 序列",
+      "domain": "数论",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "中级",
+      "selected_as": null,
+      "note": "练习奇偶、除法和变长输出"
+    },
+    {
+      "id": "C018",
+      "title": "常数 e 的数字",
+      "domain": "高精度计算",
+      "sources": [
+        "S01",
+        "S11"
+      ],
+      "difficulty": "高级",
+      "selected_as": null,
+      "note": "显式多位整数或定点表示"
+    },
+    {
+      "id": "C019",
+      "title": "黄金比例计算",
+      "domain": "高精度计算",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "高级",
+      "selected_as": null,
+      "note": "作为定点数练习"
+    },
+    {
+      "id": "C020",
+      "title": "Thue–Morse 序列",
+      "domain": "组合序列",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "中级",
+      "selected_as": null,
+      "note": "练习递推或位奇偶统计"
+    },
+    {
+      "id": "C021",
+      "title": "Sierpiński 三角形",
+      "domain": "图形",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "中级",
+      "selected_as": null,
+      "note": "可先于 Mandelbrot 完成的离散图形任务"
+    },
+    {
+      "id": "C022",
+      "title": "Mandelbrot ASCII 渲染器",
+      "domain": "图形",
+      "sources": [
+        "S09"
+      ],
+      "difficulty": "研究",
+      "selected_as": null,
+      "note": "定点运算和性能门槛高，暂不列首批"
+    },
+    {
+      "id": "C023",
+      "title": "井字棋",
+      "domain": "博弈",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "高级",
+      "selected_as": null,
+      "note": "先实现合法落子，再研究策略"
+    },
+    {
+      "id": "C024",
+      "title": "FEN 到 ASCII 棋盘",
+      "domain": "解析",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "中级",
+      "selected_as": null,
+      "note": "解析数字与棋子符号，不涉及国际象棋搜索"
+    },
+    {
+      "id": "C025",
+      "title": "非空 Quine",
+      "domain": "元编程",
+      "sources": [
+        "S01",
+        "S08"
+      ],
+      "difficulty": "研究",
+      "selected_as": null,
+      "note": "禁止读取自身源码文件，零字节空程序不计"
+    },
+    {
+      "id": "C026",
+      "title": "PP3 到其他语言的编译器",
+      "domain": "编译器",
+      "sources": [
+        "S01",
+        "S10"
+      ],
+      "difficulty": "研究",
+      "selected_as": null,
+      "note": "改编 BF-to-C 与 Awib；先确定 PP3 子集及目标语言"
+    },
+    {
+      "id": "C027",
+      "title": "细胞自动机伪随机序列",
+      "domain": "模拟",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "高级",
+      "selected_as": null,
+      "note": "固定种子、可复现，不称为真随机数"
+    },
+    {
+      "id": "C028",
+      "title": "整数商与余数",
+      "domain": "算术",
+      "sources": [
+        "S05",
+        "S11"
+      ],
+      "difficulty": "中级",
+      "selected_as": null,
+      "note": "符号和除零规则开题时确认，可支撑 GCD"
+    },
+    {
+      "id": "C029",
+      "title": "平方数序列",
+      "domain": "数列",
+      "sources": [
+        "S01"
+      ],
+      "difficulty": "基础",
+      "selected_as": null,
+      "note": "比较重复乘法与差分生成"
+    },
+    {
+      "id": "C030",
+      "title": "制表符和换行过滤器",
+      "domain": "流处理",
+      "sources": [
+        "S02"
+      ],
+      "difficulty": "基础",
+      "selected_as": null,
+      "note": "短程序的正确性与字节语义练习"
+    },
+    {
+      "id": "C031",
+      "title": "gcd(sigma(N), N) 综合挑战",
+      "domain": "数论",
+      "sources": [
+        "S12"
+      ],
+      "difficulty": "研究",
+      "selected_as": null,
+      "note": "原题五位十进制输入、多字节算术与性能约束，作为长线压力测试"
+    }
+  ],
+  "problems": [
+    {
+      "id": "P001",
+      "slug": "signed-add",
+      "title": "有符号 A+B",
+      "status": "solved",
+      "phase": 0,
+      "dependencies": [],
+      "sources": [
+        "S03"
+      ],
+      "io": "整数行输入",
+      "statement": "两行整数 A、B；输出 A+B 和换行。",
+      "plan": "沿用已验证的符号/幅值解码和正负抵消法；本阶段只迁移。",
+      "acceptance": "零、异号相消、同号负数、输入等于保留地址、大幅值。",
+      "directory": "problems/P001-signed-add"
+    },
+    {
+      "id": "P002",
+      "slug": "fibonacci",
+      "title": "斐波那契数列生成器",
+      "status": "solved",
+      "phase": 0,
+      "dependencies": [],
+      "sources": [
+        "S01"
+      ],
+      "io": "整数行输入",
+      "statement": "输入非负项数 n；从 1、1 开始，每项一行；n=0 不输出。",
+      "plan": "归档已有无直接寻址版本，不引入新算术操作。",
+      "acceptance": "n=0、1、2、10；项数与递推关系均正确。",
+      "directory": "problems/P002-fibonacci"
+    },
+    {
+      "id": "P003",
+      "slug": "decimal-codec",
+      "title": "十进制字符输入输出",
+      "status": "planned",
+      "phase": 1,
+      "dependencies": [
+        "P001"
+      ],
+      "sources": [
+        "S04",
+        "S05"
+      ],
+      "io": "字符输入输出（草案）",
+      "statement": "读取一行可选正负号和十进制数字，输出无冗余前导零的十进制文本。",
+      "plan": "先做 ASCII 数字分类、乘十加位、符号与负零规范化；再做整数到数字字符。",
+      "acceptance": "0、-0、+0012、-0012、较长数字；空行和非法数字策略开题时确认。",
+      "directory": "problems/P003-decimal-codec"
+    },
+    {
+      "id": "P004",
+      "slug": "signed-multiply",
+      "title": "有符号乘法器",
+      "status": "planned",
+      "phase": 1,
+      "dependencies": [
+        "P001"
+      ],
+      "sources": [
+        "S03"
+      ],
+      "io": "整数行输入",
+      "statement": "两行整数 A、B；输出 A×B；只用标准基本操作。",
+      "plan": "复用符号/幅值表示与非负加法，累计乘数次；记录 O(|A|×|B|) 基线再优化。",
+      "acceptance": "任一数为零、四种符号组合、±1、保留地址碰撞。",
+      "directory": "problems/P004-signed-multiply"
+    },
+    {
+      "id": "P005",
+      "slug": "gcd",
+      "title": "最大公约数",
+      "status": "planned",
+      "phase": 1,
+      "dependencies": [
+        "P001",
+        "P004"
+      ],
+      "sources": [
+        "S05",
+        "S12"
+      ],
+      "io": "整数行输入（草案）",
+      "statement": "输出非负 gcd(A,B)，拟约定 gcd(0,0)=0。",
+      "plan": "先实现比较与非负余数，再做欧几里得算法；可先用减法版本验证。",
+      "acceptance": "(0,0)、单零、相等、互质、负输入；具体输入范围开题时确认。",
+      "directory": "problems/P005-gcd"
+    },
+    {
+      "id": "P006",
+      "slug": "rot13",
+      "title": "ROT13 编解码器",
+      "status": "planned",
+      "phase": 2,
+      "dependencies": [
+        "P003"
+      ],
+      "sources": [
+        "S01",
+        "S11"
+      ],
+      "io": "定长字符帧（草案）",
+      "statement": "变换 ASCII A–Z 与 a–z；其他有效字符保持不变。",
+      "plan": "将字母映射分成四个区间，用零测试构造分支；避免把 EOF 当 0。",
+      "acceptance": "空文本、大小写边界 A/N/Z/a/n/z、标点、换行；两次变换还原。",
+      "directory": "problems/P006-rot13"
+    },
+    {
+      "id": "P007",
+      "slug": "byte-sort",
+      "title": "字节排序",
+      "status": "planned",
+      "phase": 2,
+      "dependencies": [
+        "P003"
+      ],
+      "sources": [
+        "S06"
+      ],
+      "io": "定长字符帧（草案）",
+      "statement": "给定长度和码点在 0..255 的序列，升序输出且保留重复次数。",
+      "plan": "先确定数组访问模板，再比较计数排序和插入排序；从排序 1..255 的原题扩展到允许 0。",
+      "acceptance": "空序列、已排序、逆序、重复值、0 与 255；字符帧和原始字节差异须先确认。",
+      "directory": "problems/P007-byte-sort"
+    },
+    {
+      "id": "P008",
+      "slug": "wc",
+      "title": "行、词和字节统计",
+      "status": "planned",
+      "phase": 2,
+      "dependencies": [
+        "P003"
+      ],
+      "sources": [
+        "S01"
+      ],
+      "io": "定长字符帧（草案）",
+      "statement": "统计帧内 LF、由 ASCII 空白分隔的词数及输入码点数。",
+      "plan": "一个是否在词内的状态位，加三个计数器；字符帧只纳入 0..255。",
+      "acceptance": "空文本、多空白、无结尾换行、连续换行；结果与独立参考实现一致。",
+      "directory": "problems/P008-wc"
+    },
+    {
+      "id": "P009",
+      "slug": "game-of-life",
+      "title": "Conway 生命游戏",
+      "status": "planned",
+      "phase": 3,
+      "dependencies": [
+        "P007"
+      ],
+      "sources": [
+        "S01"
+      ],
+      "io": "整数/矩形文本（草案）",
+      "statement": "输入有限矩形棋盘与代数，按环面边界规则演化并输出最终棋盘。",
+      "plan": "先做双缓冲数组和邻居计数；先批处理，交互界面后置。",
+      "acceptance": "空棋盘、静物、振荡器、跨边界邻居；小尺寸重复邻居规则先确认。",
+      "directory": "problems/P009-game-of-life"
+    },
+    {
+      "id": "P010",
+      "slug": "text-to-pp3",
+      "title": "文本到 PP3 代码生成器",
+      "status": "planned",
+      "phase": 3,
+      "dependencies": [
+        "P003",
+        "P006"
+      ],
+      "sources": [
+        "S07",
+        "S02"
+      ],
+      "io": "定长字符帧（草案）",
+      "statement": "PP3 程序读取文本并输出 PP3 源码；执行生成源码后应还原输入文本。",
+      "plan": "先生成 &n @print_as_char 基线；再比较重复输出、差分与循环的长度和执行成本。",
+      "acceptance": "空文本、NUL、换行、引号；必须重新编译并执行生成源码做往返验证。",
+      "directory": "problems/P010-text-to-pp3"
+    },
+    {
+      "id": "P011",
+      "slug": "brainfuck-interpreter",
+      "title": "用 PP3 编写 Brainfuck 解释器",
+      "status": "planned",
+      "phase": 4,
+      "dependencies": [
+        "P003",
+        "P007",
+        "P010"
+      ],
+      "sources": [
+        "S08",
+        "S01"
+      ],
+      "io": "客体语义待确认",
+      "statement": "实现八条 BF 指令；单元宽度、带边界、EOF 及代码/数据分帧须在开题前冻结。",
+      "plan": "分代码加载与过滤、括号配对、指令解码、数据带四层；先做不含输入的客体子集，再补输入。",
+      "acceptance": "嵌套/空循环、括号错误、回绕、指针边界、EOF；与独立 BF 参考解释器差分验证。",
+      "directory": "problems/P011-brainfuck-interpreter"
+    },
+    {
+      "id": "P012",
+      "slug": "pp3-self-interpreter",
+      "title": "PP3 子集自解释器",
+      "status": "research",
+      "phase": 5,
+      "dependencies": [
+        "P003",
+        "P010",
+        "P011"
+      ],
+      "sources": [
+        "S08",
+        "S10"
+      ],
+      "io": "客体子集待确认",
+      "statement": "用 PP3 解释 PP3 的明确子集；完整 std/错误语义扩展为后续目标，不提前宣称完成。",
+      "plan": "先做分词、整数解析和分派，再做 view/memory 与嵌套循环；分别确认宿主和客体的资源限制。",
+      "acceptance": "每个受支持 token 与原生运行器做差分；支持矩阵逐条记录，不支持项必须明确拒绝。",
+      "directory": "problems/P012-pp3-self-interpreter"
+    }
+  ]
+}

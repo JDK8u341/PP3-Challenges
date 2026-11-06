@@ -1,0 +1,10 @@
+[
+  {"name": "两个零", "stdin": "0\n0\n", "stdout": "0\n"},
+  {"name": "正数相加", "stdin": "5\n7\n", "stdout": "12\n"},
+  {"name": "异号相消", "stdin": "-42\n42\n", "stdout": "0\n"},
+  {"name": "两个负数", "stdin": "-123\n-456\n", "stdout": "-579\n"},
+  {"name": "负数和零", "stdin": "-1\n0\n", "stdout": "-1\n"},
+  {"name": "保留地址碰撞", "stdin": "-10\n-11\n", "stdout": "-21\n"},
+  {"name": "负侧搜索边界", "stdin": "-12\n1\n", "stdout": "-11\n"},
+  {"name": "正负幅值不等", "stdin": "42\n-100\n", "stdout": "-58\n"}
+]
