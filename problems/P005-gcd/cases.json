@@ -1,0 +1,9 @@
+[
+  {"name": "两个零", "stdin": "0\n0\n", "stdout": "0\n"},
+  {"name": "第一数为零", "stdin": "0\n-12\n", "stdout": "12\n"},
+  {"name": "第二数为零", "stdin": "-12\n0\n", "stdout": "12\n"},
+  {"name": "相等负数", "stdin": "-12\n-12\n", "stdout": "12\n"},
+  {"name": "互质异号", "stdin": "-35\n64\n", "stdout": "1\n"},
+  {"name": "非互质", "stdin": "-84\n126\n", "stdout": "42\n"},
+  {"name": "相邻边界", "stdin": "63\n64\n", "stdout": "1\n"}
+]

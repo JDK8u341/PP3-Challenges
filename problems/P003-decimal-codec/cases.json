@@ -1,0 +1,14 @@
+[
+  {"name": "零", "stdin": "0\n", "stdout": "0\n"},
+  {"name": "负零", "stdin": "-0\n", "stdout": "0\n"},
+  {"name": "正号与前导零", "stdin": "+0012\n", "stdout": "12\n"},
+  {"name": "负号与前导零", "stdin": "-0012\n", "stdout": "-12\n"},
+  {"name": "五位整数", "stdin": "12345\n", "stdout": "12345\n"},
+  {"name": "末行无 LF", "stdin": "-1234", "stdout": "-1234\n"},
+  {"name": "空行", "stdin": "\n", "stdout": "ERROR\n"},
+  {"name": "只有符号", "stdin": "+\n", "stdout": "ERROR\n"},
+  {"name": "空格不合法", "stdin": " 12\n", "stdout": "ERROR\n"},
+  {"name": "中间空格不合法", "stdin": "1 2\n", "stdout": "ERROR\n"},
+  {"name": "非 ASCII 数字不合法", "stdin": "１２\n", "stdout": "ERROR\n"},
+  {"name": "只处理首行", "stdin": "12\n34\n", "stdout": "12\n"}
+]

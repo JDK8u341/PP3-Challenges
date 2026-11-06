@@ -1,0 +1,9 @@
+[
+  {"name": "零乘负数", "stdin": "0\n-7\n", "stdout": "0\n"},
+  {"name": "正正", "stdin": "7\n8\n", "stdout": "56\n"},
+  {"name": "负正", "stdin": "-7\n8\n", "stdout": "-56\n"},
+  {"name": "正负", "stdin": "7\n-8\n", "stdout": "-56\n"},
+  {"name": "负负", "stdin": "-7\n-8\n", "stdout": "56\n"},
+  {"name": "保留地址碰撞", "stdin": "-17\n16\n", "stdout": "-272\n"},
+  {"name": "较大幅值", "stdin": "-64\n63\n", "stdout": "-4032\n"}
+]
