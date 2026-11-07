@@ -1,4 +1,4 @@
-"""生成阶段一、二的纯 DSL 文件；不读取题目输入。"""
+"""生成各阶段的纯 DSL 文件；不读取题目输入。"""
 
 import argparse
 from pathlib import Path
@@ -9,8 +9,11 @@ from tools.runtime import ROOT, problem
 from tools.macros import compile_program
 from tools.stage1 import PROGRAMS as STAGE1
 from tools.stage2 import PROGRAMS as STAGE2
+from tools.stage3 import PROGRAMS as STAGE3
+from tools.stage4 import PROGRAMS as STAGE4
+from tools.stage5 import PROGRAMS as STAGE5
 
-PROGRAMS = {**STAGE1, **STAGE2}
+PROGRAMS = {**STAGE1, **STAGE2, **STAGE3, **STAGE4, **STAGE5}
 
 
 def main():

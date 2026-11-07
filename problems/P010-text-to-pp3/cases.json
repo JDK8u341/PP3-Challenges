@@ -1,0 +1,8 @@
+[
+  {"name": "空源码", "stdin": "0\n", "stdout": ""},
+  {"name": "普通字符", "stdin": "2\nHi", "stdout": "&72 @print_as_char\n&105 @print_as_char\n"},
+  {"name": "零和最大码点", "stdin": "2\n\u0000\u00ff", "stdout": "&0 @print_as_char\n&255 @print_as_char\n"},
+  {"name": "补回换行", "stdin": "2\nA", "stdout": "&65 @print_as_char\n&10 @print_as_char\n"},
+  {"name": "负帧长", "stdin": "-1\n", "stdout": "ERROR\n"},
+  {"name": "非法码点", "stdin": "2\nA中", "stdout": "ERROR\n"}
+]

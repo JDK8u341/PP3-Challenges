@@ -1,0 +1,10 @@
+[
+  {"name": "空程序", "stdin": "0\n0\n", "stdout": ""},
+  {"name": "立即数字符输出", "stdin": "18\n0\n&65 @print_as_char", "stdout": "A"},
+  {"name": "有符号取模", "stdin": "18\n0\n&-1 @print_as_char", "stdout": "\u00ff"},
+  {"name": "字符输入输出", "stdin": "29\n1\n@input_as_char @print_as_charZ", "stdout": "Z"},
+  {"name": "循环归零", "stdin": "24\n0\n&3 [ @- ] @print_as_char", "stdout": "\u0000"},
+  {"name": "不支持整数输出", "stdin": "6\n0\n@print", "stdout": "ERROR\n"},
+  {"name": "零深度", "stdin": "2\n0\n~0", "stdout": "ERROR\n"},
+  {"name": "客体EOF保留先前输出", "stdin": "33\n0\n&65 @print_as_char @input_as_char", "stdout": "AERROR\n"}
+]

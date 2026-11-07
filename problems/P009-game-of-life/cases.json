@@ -1,0 +1,9 @@
+[
+  {"name": "零高度", "stdin": "0\n5\n7\n", "stdout": ""},
+  {"name": "零宽度", "stdin": "3\n0\n1\n", "stdout": ""},
+  {"name": "小环面重复计数", "stdin": "1\n1\n1\n1\n", "stdout": "0\n"},
+  {"name": "零代原样输出", "stdin": "2\n2\n0\n1\n0\n0\n1\n", "stdout": "10\n01\n"},
+  {"name": "二维小环面", "stdin": "2\n2\n1\n1\n0\n0\n1\n", "stdout": "00\n00\n"},
+  {"name": "负代数", "stdin": "2\n2\n-1\n", "stdout": "ERROR\n"},
+  {"name": "非法格值", "stdin": "1\n2\n0\n2\n1\n", "stdout": "ERROR\n"}
+]

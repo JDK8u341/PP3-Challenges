@@ -2,7 +2,7 @@
 
 用 PP3 解 Brainfuck 世界中的经典题目和挑战：算术、数列、文本、排序、模拟，以及解释器和代码生成。题面、推导和计划使用中文。
 
-本仓库已完成**阶段 2**：收集 31 个候选、选出 12 个代表题，目前完成 8 题。本阶段新增 ROT13、字节排序和 wc 统计，阶段 3 及之后的 4 题仍处于规划或研究阶段。
+本仓库已完成**阶段 0–5 的 12 个选定题目**：31 个候选中的其余项目继续保留为扩展。新增生命游戏、文本源码生成器、BF 解释器和 PP3 核心子集解释器；P012 的完成范围以支持矩阵为准，不包含完整 std 自托管。
 
 阶段 1、2 的六题已改为通用判断与数据结构：数字识别使用区间比较，裸整数输入不枚举保留区，ROT13 使用偏移计算，排序使用稳定链表归并，wc 使用区间状态机。输入输出协议保持不变；P001/P002 仍是阶段 0 的历史归档。
 
@@ -25,10 +25,10 @@
 | 2 | [P006 ROT13](problems/P006-rot13/) | 已完成 |
 | 2 | [P007 字节排序](problems/P007-byte-sort/) | 已完成 |
 | 2 | [P008 wc 统计](problems/P008-wc/) | 已完成 |
-| 3 | [P009 生命游戏](problems/P009-game-of-life/) | 待开始 |
-| 3 | [P010 文本到 PP3 代码生成器](problems/P010-text-to-pp3/) | 待开始 |
-| 4 | [P011 用 PP3 写 BF 解释器](problems/P011-brainfuck-interpreter/) | 待开始 |
-| 5 | [P012 PP3 子集自解释器](problems/P012-pp3-self-interpreter/) | 研究目标 |
+| 3 | [P009 生命游戏](problems/P009-game-of-life/) | 已完成 |
+| 3 | [P010 文本到 PP3 代码生成器](problems/P010-text-to-pp3/) | 已完成 |
+| 4 | [P011 用 PP3 写 BF 解释器](problems/P011-brainfuck-interpreter/) | 已完成 |
+| 5 | [P012 PP3 子集自解释器](problems/P012-pp3-self-interpreter/) | 已完成约定子集 |
 
 状态以 [catalog.json](catalog.json) 为准。已有两题在“禁用直接寻址、原有四种标准操作”条件下完成；字符 I/O 是之后题目的可用能力。
 
@@ -45,6 +45,10 @@ python tools/run.py P005
 python tools/run.py P006
 python tools/run.py P007
 python tools/run.py P008
+python tools/run.py P009
+python tools/run.py P010
+python tools/run.py P011
+python tools/run.py P012
 python -B -m unittest discover -v
 ```
 
@@ -56,7 +60,9 @@ P003 读取一行可选符号的 ASCII 十进制整数，输出规范化文本�
 
 P006/P007/P008 使用“首行帧长 + 指定数量逻辑字符”的[字符帧协议](docs/stage2-frames.md)，补回 LF 计入长度，NUL 不作为结束标记。P006 与 P007 不额外补 LF，P008 输出一行 `行数 词数 字节数`。帧内非法码点、负长度和 EOF 均不会先输出部分结果。
 
-阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md)，阶段 2 新技巧见 [数组与局部路由记录](docs/stage2-arrays.md) 和各题的 `proof.md`。重新生成阶段 1、2 的六题纯 DSL：
+P009 逐行输入 h、w、g 和 h×w 个 0/1，按环面规则输出第 g 代。P010 使用阶段二帧，输出还原文本的 PP3 源码。P011/P012 先读源码/数据两个长度，再连续读取两个字符帧；客体语义及输入示例见[链式机器与双帧协议](docs/interpreters.md)。
+
+阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md)，阶段 2 新技巧见 [数组与局部路由记录](docs/stage2-arrays.md)，阶段 3–5 见[图邻接与链式机器](docs/interpreters.md) 和各题的 `proof.md`。重新生成阶段 1–5 的十题纯 DSL：
 
 ```text
 python tools/generate.py all

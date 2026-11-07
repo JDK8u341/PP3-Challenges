@@ -508,7 +508,7 @@
       "id": "P009",
       "slug": "game-of-life",
       "title": "Conway 生命游戏",
-      "status": "planned",
+      "status": "solved",
       "phase": 3,
       "dependencies": [
         "P007"
@@ -516,17 +516,17 @@
       "sources": [
         "S01"
       ],
-      "io": "整数/矩形文本（草案）",
+      "io": "逐行整数 h、w、g 及行优先的 h×w 个 0/1；输出 h 行棋盘；零尺寸输出空文本，非法值输出 ERROR",
       "statement": "输入有限矩形棋盘与代数，按环面边界规则演化并输出最终棋盘。",
-      "plan": "先做双缓冲数组和邻居计数；先批处理，交互界面后置。",
-      "acceptance": "空棋盘、静物、振荡器、跨边界邻居；小尺寸重复邻居规则先确认。",
+      "plan": "运行时建立四方向邻接图与遍历环，组合方向统计八邻居，下一代字段统一提交。",
+      "acceptance": "空棋盘、静物、振荡器、跨边界、全部小环面初态、重复邻居计数与随机矩形差分。",
       "directory": "problems/P009-game-of-life"
     },
     {
       "id": "P010",
       "slug": "text-to-pp3",
       "title": "文本到 PP3 代码生成器",
-      "status": "planned",
+      "status": "solved",
       "phase": 3,
       "dependencies": [
         "P003",
@@ -536,17 +536,17 @@
         "S07",
         "S02"
       ],
-      "io": "定长字符帧（草案）",
+      "io": "阶段二定长字节字符帧；整帧有效后每字符输出一行 &码点 @print_as_char；空帧为空源码",
       "statement": "PP3 程序读取文本并输出 PP3 源码；执行生成源码后应还原输入文本。",
-      "plan": "先生成 &n @print_as_char 基线；再比较重复输出、差分与循环的长度和执行成本。",
-      "acceptance": "空文本、NUL、换行、引号；必须重新编译并执行生成源码做往返验证。",
+      "plan": "PP3 缓存帧、逐位格式化码点并输出立即数打印源码；Python 只静态展开生成器。",
+      "acceptance": "空文本、NUL、换行、引号、全字节域、随机帧和原运行器/P012 往返。",
       "directory": "problems/P010-text-to-pp3"
     },
     {
       "id": "P011",
       "slug": "brainfuck-interpreter",
       "title": "用 PP3 编写 Brainfuck 解释器",
-      "status": "planned",
+      "status": "solved",
       "phase": 4,
       "dependencies": [
         "P003",
@@ -557,17 +557,17 @@
         "S08",
         "S01"
       ],
-      "io": "客体语义待确认",
-      "statement": "实现八条 BF 指令；单元宽度、带边界、EOF 及代码/数据分帧须在开题前冻结。",
-      "plan": "分代码加载与过滤、括号配对、指令解码、数据带四层；先做不含输入的客体子集，再补输入。",
-      "acceptance": "嵌套/空循环、括号错误、回绕、指针边界、EOF；与独立 BF 参考解释器差分验证。",
+      "io": "先读两行源码/数据长度，再连续消费两帧；8 位回绕、双向无限零带、客体 EOF 写零",
+      "statement": "执行八条 BF 指令，忽略其他字符，执行前完整校验帧与括号；非法输入输出 ERROR。",
+      "plan": "链式指令流与括号配对引用栈、直接跳转和按需扩展的双向数据带。",
+      "acceptance": "八指令、嵌套/空循环、括号错误、回绕、双向移动、EOF、倒序程序及独立模型随机差分。",
       "directory": "problems/P011-brainfuck-interpreter"
     },
     {
       "id": "P012",
       "slug": "pp3-self-interpreter",
       "title": "PP3 子集自解释器",
-      "status": "research",
+      "status": "solved",
       "phase": 5,
       "dependencies": [
         "P003",
@@ -578,10 +578,10 @@
         "S08",
         "S10"
       ],
-      "io": "客体子集待确认",
-      "statement": "用 PP3 解释 PP3 的明确子集；完整 std/错误语义扩展为后续目标，不提前宣称完成。",
-      "plan": "先做分词、整数解析和分派，再做 view/memory 与嵌套循环；分别确认宿主和客体的资源限制。",
-      "acceptance": "每个受支持 token 与原生运行器做差分；支持矩阵逐条记录，不支持项必须明确拒绝。",
+      "io": "源码/数据双长度帧；ASCII 空白分词；语法错误先拒绝，客体 EOF 输出 ERROR 并停止",
+      "statement": "用 PP3 解释立即数、正深度间接读写交换、循环、自增减及字符 I/O；不宣称完整 std 自托管。",
+      "plan": "链式词法分析与括号配对；用符号/幅值表示客体整数，以已访问键构建稀疏有序内存。",
+      "acceptance": "支持矩阵、非法项拒绝、负地址与循环、输出/view/有序内存对原运行器随机差分。",
       "directory": "problems/P012-pp3-self-interpreter"
     }
   ]
