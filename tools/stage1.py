@@ -7,14 +7,13 @@ def decimal_codec(m):
     char, digit, magnitude, sign, first, seen, error, run = (m.slot(name) for name in (
         "当前字符", "当前数字", "整数幅值", "负号", "首字符", "见过数字", "错误", "继续输入",
     ))
-    invalid, done = m.slot("非法数字"), m.slot("有限分类完成")
+    valid = m.slot("有效数字")
     decode_digit = seq(
-        m.constant(invalid, 0), m.constant(done, 0),
-        m.read(char) + " " + "@- " * 48,
-        m.small_cases("@-", 9, m.constant(invalid, 1), lambda index: m.constant(digit, index)),
-        m.if_nonzero(m.read(invalid), m.constant(error, 1), seq(
+        m.in_range(char, 48, 57, valid),
+        m.if_nonzero(m.read(valid), seq(
+            m.put(digit, m.read(char) + " " + "@- " * 48),
             m.multiply_by_ten(magnitude), m.add_into(magnitude, digit), m.constant(seen, 1),
-        )),
+        ), m.constant(error, 1)),
     )
     sign_or_digit = m.if_nonzero(
         m.read(char) + " " + "@- " * 43,

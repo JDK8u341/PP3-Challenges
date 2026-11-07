@@ -4,6 +4,8 @@
 
 本仓库已完成**阶段 2**：收集 31 个候选、选出 12 个代表题，目前完成 8 题。本阶段新增 ROT13、字节排序和 wc 统计，阶段 3 及之后的 4 题仍处于规划或研究阶段。
 
+阶段 1、2 的六题已改为通用判断与数据结构：数字识别使用区间比较，裸整数输入不枚举保留区，ROT13 使用偏移计算，排序使用稳定链表归并，wc 使用区间状态机。输入输出协议保持不变；P001/P002 仍是阶段 0 的历史归档。
+
 - [完整候选题库](research/catalog.md)
 - [分阶段计划](ROADMAP.md)
 - [执行条件与待确认语义](docs/semantics.md)
@@ -54,13 +56,16 @@ P003 读取一行可选符号的 ASCII 十进制整数，输出规范化文本�
 
 P006/P007/P008 使用“首行帧长 + 指定数量逻辑字符”的[字符帧协议](docs/stage2-frames.md)，补回 LF 计入长度，NUL 不作为结束标记。P006 与 P007 不额外补 LF，P008 输出一行 `行数 词数 字节数`。帧内非法码点、负长度和 EOF 均不会先输出部分结果。
 
-阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md)，阶段 2 新技巧见 [负地址数组寻址](docs/stage2-arrays.md) 和各题的 `proof.md`。重新生成阶段 1、2 的六题纯 DSL：
+阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md)，阶段 2 新技巧见 [数组与局部路由记录](docs/stage2-arrays.md) 和各题的 `proof.md`。重新生成阶段 1、2 的六题纯 DSL：
 
 ```text
 python tools/generate.py all
+python tools/measure_general.py
 ```
 
 运行器始终采用 `IRBuilder(op_map=std_register)` 和 `Runtime(can_direct_addressing=False)`。Python 工具只负责加载、展开静态宏和测试，不参与被解题目的运算；新解答不能调用 cup 或注入自定义运算。
+
+归并排序的载荷不限于字节，通用宏测试另覆盖超字节值及稳定性。比较仍可能按数值递减，所以通用化不等于加速；新旧分派样本见 [测量报告](results/general-algorithms.json)。图模型与记录方案来自 [PP3-Lab](https://github.com/JDK8u341/PP3-Lab)。
 
 ## 目录
 
