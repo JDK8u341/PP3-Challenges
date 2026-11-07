@@ -1,8 +1,7 @@
 """PP3 核心子集的自解释器；客体整数与地址都用符号、幅值表示。"""
 
-from tools.macros import compile_program, seq
-from tools.machines import Chain, InstructionMachine, dual_frame
-from tools.records import Reference
+from pp3_toolkit import Chain, InstructionMachine, compile_program, dual_frame, seq
+from pp3_toolkit.records import Reference
 
 
 def self_interpreter(m):

@@ -7,8 +7,7 @@ import random
 import unittest
 from unittest.mock import patch
 
-from tools.macros import Macros, compile_program, seq
-from tools.records import RecordHeap, RecordList, merge_sort
+from pp3_toolkit import Macros, RecordHeap, RecordList, compile_program, merge_sort, seq
 from tools.runtime import Runtime, build
 
 

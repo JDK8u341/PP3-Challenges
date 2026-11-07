@@ -49,6 +49,7 @@ python tools/run.py P009
 python tools/run.py P010
 python tools/run.py P011
 python tools/run.py P012
+python -m pip install -r requirements-test.txt
 python -B -m unittest discover -v
 ```
 
@@ -62,7 +63,9 @@ P006/P007/P008 使用“首行帧长 + 指定数量逻辑字符”的[字符帧�
 
 P009 逐行输入 h、w、g 和 h×w 个 0/1，按环面规则输出第 g 代。P010 使用阶段二帧，输出还原文本的 PP3 源码。P011/P012 先读源码/数据两个长度，再连续读取两个字符帧；客体语义及输入示例见[链式机器与双帧协议](docs/interpreters.md)。
 
-阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md)，阶段 2 新技巧见 [数组与局部路由记录](docs/stage2-arrays.md)，阶段 3–5 见[图邻接与链式机器](docs/interpreters.md) 和各题的 `proof.md`。重新生成阶段 1–5 的十题纯 DSL：
+通用宏、数组/记录、链式机器和帧生成器已提取至独立的 [PP3-Toolkit](https://github.com/JDK8u341/PP3-Toolkit)，本仓库通过 `requirements-test.txt` 固定依赖其不可变 Git commit。旧 `tools.macros` 等导入路径保留为兼容转发层；题目专属生成器仍留在本仓库。细节见[工具箱迁移说明](docs/toolkit.md)。
+
+阶段 1 的中文证明见 [共同宏与不变量](docs/stage1-macros.md)，阶段 2 新技巧见 [数组与局部路由记录](docs/stage2-arrays.md)，阶段 3–5 见[图邻接与链式机器](docs/interpreters.md) 和各题的 `proof.md`。重新生成阶段 1–5 的十题纯 DSL（先安装固定工具依赖）：
 
 ```text
 python tools/generate.py all

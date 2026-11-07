@@ -1,8 +1,7 @@
 """纯 PP3 Brainfuck 解释器：静态展开八种操作，动态执行客体程序。"""
 
-from tools.macros import compile_program, seq
-from tools.machines import InstructionMachine, dual_frame
-from tools.records import Reference
+from pp3_toolkit import InstructionMachine, compile_program, dual_frame, seq
+from pp3_toolkit.records import Reference
 
 
 def brainfuck(m):

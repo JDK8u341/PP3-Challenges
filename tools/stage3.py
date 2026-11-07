@@ -1,10 +1,8 @@
 """生命游戏与文本源码生成器；输入、演化和格式化全部在 PP3 内进行。"""
 
-from tools.arrays import NegativeArray
-from tools.macros import compile_program, seq
-from tools.machines import Arena, Chain, literal
-from tools.records import Reference
-from tools.stage2 import ERROR_OUTPUT, frame_program
+from pp3_toolkit import Arena, Chain, NegativeArray, compile_program, literal, seq
+from pp3_toolkit.frames import ERROR_OUTPUT, frame_program
+from pp3_toolkit.records import Reference
 
 
 def text_to_pp3(m):

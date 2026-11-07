@@ -7,8 +7,7 @@ import random
 import unittest
 from unittest.mock import patch
 
-from tools.arrays import NegativeArray
-from tools.macros import Macros, compile_program, seq
+from pp3_toolkit import Macros, NegativeArray, compile_program, seq
 from tools.runtime import ROOT, Runtime, build, problem
 from tools.stage2 import PROGRAMS, make_code
 
