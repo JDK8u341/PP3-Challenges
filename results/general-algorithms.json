@@ -1,0 +1,117 @@
+{
+  "baseline": "a35bf1fc038177138e80d86c2e9c83d55f2d2b9a",
+  "metric": "原版 Runtime handler 分派次数；不等于宿主时间，循环内部实际执行计入",
+  "scope": "有限样本对照，不据此推断任意输入的精确公式或普遍加速",
+  "programs": {
+    "P003": {
+      "old_tokens": 2030,
+      "new_tokens": 2894
+    },
+    "P004": {
+      "old_tokens": 1617,
+      "new_tokens": 1513
+    },
+    "P005": {
+      "old_tokens": 1645,
+      "new_tokens": 1529
+    },
+    "P006": {
+      "old_tokens": 2948,
+      "new_tokens": 3965
+    },
+    "P007": {
+      "old_tokens": 1478,
+      "new_tokens": 3802
+    },
+    "P008": {
+      "old_tokens": 4643,
+      "new_tokens": 4285
+    }
+  },
+  "samples": [
+    {
+      "problem": "P003",
+      "label": "规范化负数",
+      "stdin": "-00123\n",
+      "old_dispatches": 24390,
+      "new_dispatches": 42685
+    },
+    {
+      "problem": "P004",
+      "label": "异号乘法",
+      "stdin": "-12\n7\n",
+      "old_dispatches": 2527,
+      "new_dispatches": 4073
+    },
+    {
+      "problem": "P005",
+      "label": "有符号GCD",
+      "stdin": "-84\n126\n",
+      "old_dispatches": 27773,
+      "new_dispatches": 62445
+    },
+    {
+      "problem": "P006",
+      "label": "文本旋转",
+      "stdin": "13\nHello, World!",
+      "old_dispatches": 55497,
+      "new_dispatches": 239379
+    },
+    {
+      "problem": "P008",
+      "label": "空白统计",
+      "stdin": "6\na b\nc\t",
+      "old_dispatches": 20121,
+      "new_dispatches": 29196
+    },
+    {
+      "problem": "P007",
+      "label": "逆序0项",
+      "stdin": "0\n",
+      "old_dispatches": 10090,
+      "new_dispatches": 534
+    },
+    {
+      "problem": "P007",
+      "label": "逆序1项",
+      "stdin": "1\n\u0000",
+      "old_dispatches": 10561,
+      "new_dispatches": 1143
+    },
+    {
+      "problem": "P007",
+      "label": "逆序8项",
+      "stdin": "8\n\u0007\u0006\u0005\u0004\u0003\u0002\u0001\u0000",
+      "old_dispatches": 13669,
+      "new_dispatches": 19675
+    },
+    {
+      "problem": "P007",
+      "label": "逆序32项",
+      "stdin": "32\n\u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u0016\u0015\u0014\u0013\u0012\u0011\u0010\u000f\u000e\r\f\u000b\n\t\b\u0007\u0006\u0005\u0004\u0003\u0002\u0001\u0000",
+      "old_dispatches": 46645,
+      "new_dispatches": 150983
+    },
+    {
+      "problem": "P007",
+      "label": "逆序128项",
+      "stdin": "128\n~}|{zyxwvutsrqponmlkjihgfedcba`_^]\\[ZYXWVUTSRQPONMLKJIHGFEDCBA@?>=<;:9876543210/.-,+*)('&%$#\"! \u001f\u001e\u001d\u001c\u001b\u001a\u0019\u0018\u0017\u0016\u0015\u0014\u0013\u0012\u0011\u0010\u000f\u000e\r\f\u000b\n\t\b\u0007\u0006\u0005\u0004\u0003\u0002\u0001\u0000",
+      "old_dispatches": 524149,
+      "new_dispatches": 1800303
+    },
+    {
+      "problem": "P007",
+      "label": "相等32项",
+      "stdin": "32\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "old_dispatches": 141672,
+      "new_dispatches": 170363
+    },
+    {
+      "problem": "P007",
+      "label": "相等128项",
+      "stdin": "128\nAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "old_dispatches": 535656,
+      "new_dispatches": 753715
+    }
+  ]
+}

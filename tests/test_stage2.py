@@ -58,7 +58,7 @@ class ArrayTests(unittest.TestCase):
         output, _ = execute(build(compile_program(program)), "")
         self.assertEqual(output, "0\n255\n1\n0\n11\n")
 
-    def test_seek_and_in_place_count_updates_preserve_other_buckets(self):
+    def test_seek_and_in_place_updates_preserve_other_elements(self):
         def program(m):
             array = NegativeArray(m)
             index = m.slot("测试下标")
@@ -114,7 +114,7 @@ class Stage2Tests(unittest.TestCase):
                 output, _ = execute(self.ir["P007"], frame(text))
                 self.assertEqual(output, "".join(sorted(text)))
 
-    def test_sort_frequency_is_not_limited_to_one_byte(self):
+    def test_sort_duplicate_count_is_not_limited_to_one_byte(self):
         text = "A" * 300 + "\x00" * 270 + "\xff" * 260
         output, _ = execute(self.ir["P007"], frame(text))
         self.assertEqual(output, "".join(sorted(text)))
@@ -240,17 +240,34 @@ class Stage2Tests(unittest.TestCase):
         for name in PROGRAMS:
             layout = Macros()
             PROGRAMS[name](layout)
-            bound = len(layout.slots) + 1
+            bound = len(layout.slots) + 3
             pointer = layout.slots.get("数据区.指针")
+            references = {slot for key, slot in layout.slots.items()
+                          if key.endswith((".表头", ".表尾", ".未使用地址", ".转移节点")) or key == "排序节点"}
             text = "z\x00A\xffz\n"
             _, rt = execute(self.ir[name], frame(text))
             with self.subTest(problem=name):
                 for address, value in rt.memory.items():
                     if address == 0:
                         continue
+                    if address in (-1, -2):
+                        self.assertEqual(value, 0)
+                        continue
                     if address == pointer:
                         self.assertLessEqual(value, -bound)
-                    elif address < -len(layout.slots):
+                    elif address in references:
+                        self.assertTrue(value == 0 or value <= -bound)
+                        if value:
+                            self.assertEqual(rt.memory[value], 0)
+                    elif address <= -bound and name == "P007":
+                        field = (-bound - address) % 4
+                        if field == 0:
+                            self.assertEqual(value, 0)
+                        elif field == 3:
+                            self.assertTrue(value == 0 or (value <= -bound and (-bound - value) % 4 == 0))
+                        else:
+                            self.assertGreaterEqual(value, 0)
+                    elif address <= -bound:
                         self.assertGreaterEqual(value, 0)
                     elif address < 0:
                         self.assertGreaterEqual(value, 0)
@@ -259,8 +276,11 @@ class Stage2Tests(unittest.TestCase):
                 if name == "P006":
                     self.assertEqual("".join(chr(rt.memory[-bound - index]) for index in range(len(text))), reference_rot13(text))
                 elif name == "P007":
-                    expected = Counter(map(ord, text))
-                    self.assertEqual([rt.memory[-bound - index] for index in range(256)], [expected[index] for index in range(256)])
+                    nodes = [-bound - 4 * index for index in range(len(text))]
+                    self.assertEqual([rt.memory[node - 1] for node in nodes], list(map(ord, text)))
+                    self.assertTrue(all(rt.memory[node] == rt.memory[node - 3] == 0 for node in nodes))
+                    self.assertEqual(rt.memory[layout.slots["排序数据.表头"]], 0)
+                    self.assertEqual(rt.memory[layout.slots["排序数据.表尾"]], 0)
 
 
 if __name__ == "__main__":

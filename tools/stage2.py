@@ -2,23 +2,17 @@
 
 from tools.arrays import NegativeArray
 from tools.macros import compile_program, seq
+from tools.records import RecordHeap, RecordList, merge_sort
 
 
 ERROR_OUTPUT = " ".join(f"&{ord(char)} @print_as_char" for char in "ERROR\n")
 
 
 def validate_byte(m, char, error):
-    """最多走 256 步，判断字符码点是否落在 0..255。"""
-    walk, budget, run = (m.slot(name) for name in ("字节探测", "字节预算", "字节探测继续"))
-    step = seq(
-        m.change(walk, "@-"), m.change(budget, "@-"), m.constant(run, 0),
-        m.once(m.read(walk), m.once(m.read(budget), m.constant(run, 1))),
-    )
-    return seq(
-        m.copy(walk, char), m.copy(run, char), m.constant(budget, 256),
-        m.loop(m.read(run), step),
-        m.if_zero(m.read(budget), m.constant(error, 1)),
-    )
+    """ord() 已保证非负，只需与最大有效码点做通用比较。"""
+    maximum, lt, eq, gt = (m.slot(name) for name in ("最大字节", "字节小于", "字节等于", "字节大于"))
+    return seq(m.constant(maximum, 255), m.compare(char, maximum, lt, eq, gt),
+               m.once(m.read(gt), m.constant(error, 1)))
 
 
 def frame_program(m, prepare, consume, finish):
@@ -50,24 +44,24 @@ def frame_program(m, prepare, consume, finish):
 
 def rot13(m):
     array = NegativeArray(m)
-    mapped, done, remaining = (m.slot(name) for name in ("映射字符", "有限分类完成", "回放剩余"))
+    mapped, remaining, upper, lower, start, offset, half, lt, eq, gt = (m.slot(name) for name in (
+        "映射字符", "回放剩余", "大写字母", "小写字母", "字母起点", "字母偏移", "半字母表",
+        "旋转小于", "旋转等于", "旋转大于"))
 
     def prepare(m, length):
         return array.reset()
 
     def consume(m, char):
-        def case(index):
-            codepoint = 65 + index
-            if index < 26:
-                codepoint = 65 + (index + 13) % 26
-            elif index >= 32:
-                codepoint = 97 + (index - 32 + 13) % 26
-            return m.constant(mapped, codepoint)
-
+        rotate = seq(
+            m.copy(offset, char), m.subtract_from(offset, start), m.constant(half, 13),
+            m.compare(offset, half, lt, eq, gt),
+            m.if_nonzero(m.read(lt), m.put(mapped, m.read(char) + " " + "@+ " * 13),
+                         m.put(mapped, m.read(char) + " " + "@- " * 13)),
+        )
         return seq(
-            m.copy(mapped, char), m.constant(done, 0),
-            m.read(char) + " " + "@- " * 65,
-            m.small_cases("@-", 57, "", case),
+            m.copy(mapped, char), m.in_range(char, 65, 90, upper), m.in_range(char, 97, 122, lower),
+            m.if_nonzero(m.read(upper), seq(m.constant(start, 65), rotate),
+                         m.once(m.read(lower), seq(m.constant(start, 97), rotate))),
             array.put(m.read(mapped)), array.advance(),
         )
 
@@ -83,27 +77,20 @@ def rot13(m):
 
 
 def byte_sort(m):
-    counts = NegativeArray(m)
-    value, remaining, frequency = (m.slot(name) for name in ("输出字节", "字节桶剩余", "当前频次"))
+    heap = RecordHeap(m)
+    data = RecordList(heap, "排序数据")
+    node, sign = m.slot("排序节点"), m.slot("排序零符号")
 
     def prepare(m, length):
-        return ""
+        return heap.initialize()
 
     def consume(m, char):
-        return seq(counts.seek(char), counts.change("@+"))
+        return seq(heap.allocate(node, char, sign), data.append(node))
 
     def finish(m, length):
-        emit_bucket = seq(
-            m.put(frequency, counts.read()),
-            m.loop(m.read(frequency), seq(
-                m.read(value) + " @print_as_char", m.change(frequency, "@-"),
-            )),
-            counts.advance(), m.change(value, "@+"), m.change(remaining, "@-"),
-        )
-        return seq(
-            counts.reset(), m.constant(remaining, 256),
-            m.loop(m.read(remaining), emit_bucket),
-        )
+        return seq(merge_sort(m, data, length), m.loop(m.read(data.head), seq(
+            data.pop(node), heap.read(node, RecordHeap.MAGNITUDE) + " @print_as_char",
+        )))
 
     return frame_program(m, prepare, consume, finish)
 
@@ -115,10 +102,8 @@ def wc(m):
         return ""
 
     def consume(m, char):
-        classify = seq(*(m.if_zero(
-            m.read(char) + " " + "@- " * value,
-            m.constant(whitespace, 1),
-        ) for value in (9, 10, 11, 12, 13, 32)))
+        classify = seq(m.in_range(char, 9, 13, whitespace),
+                       m.if_zero(m.read(char) + " " + "@- " * 32, m.constant(whitespace, 1)))
         return seq(
             m.if_zero(m.read(char) + " " + "@- " * 10, m.change(lines, "@+")),
             m.constant(whitespace, 0), classify,

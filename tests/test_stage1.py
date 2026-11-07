@@ -21,7 +21,7 @@ def evaluate(ir, stdin):
 
 class MacroTests(unittest.TestCase):
     def test_self_loop_update_handles_zero_and_both_directions(self):
-        for value in [0, 1, 2, 100, -10, -100, 10**100, -(10**100)]:
+        for value in [0, 1, 2, 100, 10**100]:
             for operation, expected in [("@+", value + 1), ("@-", value - 1)]:
                 if expected == -1:
                     continue
@@ -61,6 +61,37 @@ class MacroTests(unittest.TestCase):
         for value in range(-60, 61):
             with self.subTest(value=value):
                 self.assertEqual(evaluate(ir, f"{value}\n"), f"{abs(value)}\n{int(value < 0)}\n")
+
+    def test_decoder_reuses_slots_and_handles_expanded_layout(self):
+        def program(m):
+            a, sa, b, sb = (m.slot(name) for name in ("甲幅值", "甲符号", "乙幅值", "乙符号"))
+            # 保留槽位随程序扩大；所有槽含自然数，输入仍可能与任一槽地址相等。
+            padding = [m.constant(m.slot(f"额外槽{i}"), i) for i in range(80)]
+            return seq(*padding, m.decode_integer(a, sa), m.decode_integer(b, sb),
+                       m.read(a) + " @print", m.read(sa) + " @print",
+                       m.read(b) + " @print", m.read(sb) + " @print")
+
+        ir = build(compile_program(program))
+        for a in [-500, -100, -88, -87, -86, -85, -84, -83, -82, -81, -2, -1, 0, 1, 83, 500]:
+            for b in [-90, -89, -88, -87, 0, 88]:
+                with self.subTest(a=a, b=b):
+                    self.assertEqual(evaluate(ir, f"{a}\n{b}\n"),
+                                     f"{abs(a)}\n{int(a < 0)}\n{abs(b)}\n{int(b < 0)}\n")
+
+    def test_comparison_restores_markers_and_preserves_inputs(self):
+        def program(m):
+            a, b, lt, eq, gt = (m.slot(name) for name in ("甲", "乙", "小于", "等于", "大于"))
+            return seq(m.put(a, "@input"), m.put(b, "@input"), m.compare(a, b, lt, eq, gt),
+                       *(m.read(slot) + " @print" for slot in (a, b, lt, eq, gt)))
+
+        ir = build(compile_program(program))
+        for a, b in [(0, 0), (0, 255), (255, 0), (57, 48), (48, 57), (300, 301), (10**100, 10**100)]:
+            rt = Runtime(can_direct_addressing=False)
+            with patch("sys.stdin", StringIO(f"{a}\n{b}\n")), redirect_stdout(StringIO()) as output:
+                rt.run(ir)
+            self.assertEqual(output.getvalue(), f"{a}\n{b}\n{int(a < b)}\n{int(a == b)}\n{int(a > b)}\n")
+            self.assertTrue(all(value == 0 for address, value in rt.memory.items() if address > 0))
+            self.assertEqual((rt.memory[-1], rt.memory[-2]), (0, 0))
 
 
 class Stage1Tests(unittest.TestCase):
@@ -127,7 +158,7 @@ class Stage1Tests(unittest.TestCase):
                 rt.run(self.ir[problem_id])
             with self.subTest(problem=problem_id, text=text):
                 for address, value in rt.memory.items():
-                    self.assertTrue(-len(layout.slots) <= address <= 0 or value == 0,
+                    self.assertTrue(-len(layout.slots) - 2 <= address <= -3 or address == 0 or value == 0,
                                     f"保留范围之外发生非零写入：{address}={value}")
 
     def test_multiplication_small_signed_square(self):
