@@ -8,9 +8,8 @@ import random
 import unittest
 from unittest.mock import patch
 
-from tools.macros import Macros, compile_program, seq
-from tools.machines import Arena
-from tools.records import Reference
+from pp3_toolkit import Arena, Macros, compile_program, seq
+from pp3_toolkit.records import Reference
 from tools.runtime import ROOT, Runtime, build, problem
 from tools.stage3 import PROGRAMS as STAGE3
 from tools.stage4 import PROGRAMS as STAGE4
@@ -18,6 +17,20 @@ from tools.stage5 import PROGRAMS as STAGE5
 
 
 PROGRAMS = {**STAGE3, **STAGE4, **STAGE5}
+
+
+class ToolkitCompatibilityTests(unittest.TestCase):
+    def test_legacy_module_paths_reexport_the_toolkit_objects(self):
+        from pp3_toolkit import Arena, Macros, NegativeArray, RecordHeap
+        from tools.arrays import NegativeArray as LegacyArray
+        from tools.macros import Macros as LegacyMacros
+        from tools.machines import Arena as LegacyArena
+        from tools.records import RecordHeap as LegacyRecordHeap
+
+        self.assertIs(LegacyMacros, Macros)
+        self.assertIs(LegacyArray, NegativeArray)
+        self.assertIs(LegacyArena, Arena)
+        self.assertIs(LegacyRecordHeap, RecordHeap)
 
 
 def execute(ir, stdin=""):

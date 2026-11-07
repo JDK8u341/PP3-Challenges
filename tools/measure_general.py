@@ -12,7 +12,7 @@ from unittest.mock import patch
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.runtime import ROOT, Runtime, build, problem
 from tools.generate import PROGRAMS
-from tools.macros import compile_program
+from pp3_toolkit import compile_program
 
 
 BASELINE = "a35bf1fc038177138e80d86c2e9c83d55f2d2b9a"

@@ -7,7 +7,7 @@ import random
 import unittest
 from unittest.mock import patch
 
-from tools.macros import Macros, compile_program, seq
+from pp3_toolkit import Macros, compile_program, seq
 from tools.runtime import ROOT, Runtime, build, problem
 from tools.stage1 import PROGRAMS, make_code
 

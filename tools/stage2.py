@@ -1,45 +1,7 @@
 """阶段二的纯 PP3 程序构造；字符映射与数组操作均在 DSL 内执行。"""
 
-from tools.arrays import NegativeArray
-from tools.macros import compile_program, seq
-from tools.records import RecordHeap, RecordList, merge_sort
-
-
-ERROR_OUTPUT = " ".join(f"&{ord(char)} @print_as_char" for char in "ERROR\n")
-
-
-def validate_byte(m, char, error):
-    """ord() 已保证非负，只需与最大有效码点做通用比较。"""
-    maximum, lt, eq, gt = (m.slot(name) for name in ("最大字节", "字节小于", "字节等于", "字节大于"))
-    return seq(m.constant(maximum, 255), m.compare(char, maximum, lt, eq, gt),
-               m.once(m.read(gt), m.constant(error, 1)))
-
-
-def frame_program(m, prepare, consume, finish):
-    length, sign, remaining, char, error = (m.slot(name) for name in (
-        "帧长", "长度负号", "剩余字符", "帧字符", "帧错误",
-    ))
-    # 先构造正文以统计槽位，再在运行顺序上放到长度解码之后
-    initialize = prepare(m, length)
-    process = consume(m, char)
-    output = finish(m, length)
-    step = seq(
-        m.put(char, "@input_as_char"),
-        m.if_zero(m.read(error), seq(
-            validate_byte(m, char, error),
-            m.if_zero(m.read(error), process),
-        )),
-        m.change(remaining, "@-"),
-    )
-    valid_length = seq(
-        initialize, m.copy(remaining, length),
-        m.loop(m.read(remaining), step),
-        m.if_nonzero(m.read(error), ERROR_OUTPUT, output),
-    )
-    return seq(
-        m.decode_integer(length, sign),
-        m.if_nonzero(m.read(sign), ERROR_OUTPUT, valid_length),
-    )
+from pp3_toolkit import NegativeArray, RecordHeap, RecordList, compile_program, merge_sort, seq
+from pp3_toolkit.frames import ERROR_OUTPUT, frame_program
 
 
 def rot13(m):

@@ -6,7 +6,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from tools.runtime import ROOT, problem
-from tools.macros import compile_program
+from pp3_toolkit import compile_program
 from tools.stage1 import PROGRAMS as STAGE1
 from tools.stage2 import PROGRAMS as STAGE2
 from tools.stage3 import PROGRAMS as STAGE3

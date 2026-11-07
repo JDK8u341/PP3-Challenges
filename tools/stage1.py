@@ -1,6 +1,6 @@
 """阶段一三题的编译期程序构造；所有解题运算由生成的 PP3 完成。"""
 
-from tools.macros import compile_program, seq
+from pp3_toolkit import ERROR_OUTPUT, compile_program, seq
 
 
 def decimal_codec(m):
@@ -32,12 +32,11 @@ def decimal_codec(m):
         m.once(m.read(magnitude), m.once(m.read(sign), "&45 @print_as_char")),
         m.print_unsigned_decimal(magnitude), "&10 @print_as_char",
     )
-    error_output = " ".join(f"&{ord(char)} @print_as_char" for char in "ERROR\n")
     return seq(
         m.constant(first, 1), m.constant(run, 1),
         m.loop(m.read(run), character_step),
         m.if_zero(m.read(seen), m.constant(error, 1)),
-        m.if_nonzero(m.read(error), error_output, normal_output),
+        m.if_nonzero(m.read(error), ERROR_OUTPUT, normal_output),
     )
 
 
