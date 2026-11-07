@@ -1,0 +1,10 @@
+[
+  {"name": "空客体", "stdin": "0\n0\n", "stdout": ""},
+  {"name": "加一输出", "stdin": "2\n0\n+.", "stdout": "\u0001"},
+  {"name": "负向回绕", "stdin": "2\n0\n-.", "stdout": "\u00ff"},
+  {"name": "客体EOF写零", "stdin": "2\n0\n,.", "stdout": "\u0000"},
+  {"name": "循环乘法", "stdin": "12\n0\n++[>+++<-]>.", "stdout": "\u0006"},
+  {"name": "倒序输出", "stdin": "10\n3\n,[>,]<[.<]abc", "stdout": "cba"},
+  {"name": "括号错误", "stdin": "2\n0\n.[", "stdout": "ERROR\n"},
+  {"name": "负数据长度", "stdin": "0\n-1\n", "stdout": "ERROR\n"}
+]
